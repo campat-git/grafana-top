@@ -1,0 +1,11 @@
+[Unit]
+Description=getbig push to prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/getbig
+
+[Install]
+WantedBy=multi-user.target
