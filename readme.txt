@@ -15,6 +15,7 @@ prometheus server 9092
 
 node_exporter 9093
 pushgateway 9091
+getbig 9091
 
 --- client build
 
@@ -58,8 +59,12 @@ systemctl enable --now  pushgateway.service
 systemctl enable --now  getbig.service
 
 
+stress test to see if its working
+
 stress-ng --cpu 0 --timeout 60s
 stress-ng --vm 2 --vm-bytes 1G --timeout 60s --verify
 
 
-
+rebuilding binary 
+cd src
+cargo build --release
