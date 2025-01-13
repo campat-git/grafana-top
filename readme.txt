@@ -1,7 +1,8 @@
 
 DRAFT
 
-![App Screenshot](top.png)
+
+
 
 Grafana v10.2.6 
 wget https://github.com/prometheus/prometheus/releases/download/v3.1.0/prometheus-3.1.0.linux-amd64.tar.gz
