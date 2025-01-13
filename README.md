@@ -5,11 +5,11 @@
 
 Grafana v10.2.6
 
-<pre> ```
+<pre> 
 wget https://github.com/prometheus/prometheus/releases/download/v3.1.0/prometheus-3.1.0.linux-amd64.tar.gz
 wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 wget https://github.com/prometheus/pushgateway/releases/download/v1.11.0/pushgateway-1.11.0.linux-amd64.tar.gz
-``` </pre>
+</pre>
 
 all the ports for incoming and out got data is up to you but should be consistant. 
 
@@ -21,13 +21,18 @@ node_exporter 9093
 pushgateway 9091
 getbig 9091
 
---- client build
-
+**client build**
+<pre> 
 useradd -s /sbin/nologin node_exporter
 useradd -s /sbin/nologin prometheus
 useradd -s /sbin/nologin pushgateway
+</pre>
 
+<pre> 
+git clone git@github.com:campat-git/grafana-top.git
+</pre>
 
+cd grafana-top
 cp node_exporter.service /usr/lib/systemd/system/
 cp pushgateway.service /usr/lib/systemd/system/
 cp getbig.service /usr/lib/systemd/system/
