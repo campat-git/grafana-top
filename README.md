@@ -53,6 +53,24 @@ systemctl enable --now  pushgateway.service
 systemctl enable --now  getbig.service
 ```
 
+**server update** 
+These instructions assume you already have a grafana server running with a Prometheus datasource 
+
+this document does a decent job and  and is the original version of  my Grafana page
+https://devconnected.com/monitoring-linux-processes-using-prometheus-and-grafana/
+
+1. on your grafana admin page import top.json included
+
+![App Screenshot](import.png)
+
+2. edit you /etc/ prometheus.yml file it needs to look at 2 ports
+
+```sh
+      - targets: ["localhost:9093"]
+      - targets: ["localhost:9091"]
+
+```
+
 I have included multiple version of the same script in different languages, you only need to pick which one you want to uses. A python version is being worked on.
 
 **getbig versions**  (pick any one)
