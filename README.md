@@ -68,8 +68,11 @@ https://devconnected.com/monitoring-linux-processes-using-prometheus-and-grafana
 ```sh
       - targets: ["localhost:9093"]
       - targets: ["localhost:9091"]
-
 ```
+
+3. restart the promethus service
+4. done
+
 
 I have included multiple version of the same script in different languages, you only need to pick which one you want to uses. A python version is being worked on.
 
@@ -108,6 +111,11 @@ rebuilding the rust binary
 cd src
 cargo build --release
 ```
+
+
+**working on**
+
+i am building a install script which will do all the above all at once, writing a python version and building a windows version. 
 
 ## License
 
