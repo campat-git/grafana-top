@@ -1,4 +1,53 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.2.6"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -13,21 +62,52 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "enable": true,
+        "iconColor": "red",
+        "name": "New annotation"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "enable": true,
+        "iconColor": "red",
+        "name": "New annotation"
       }
     ]
   },
-  "description": "whatever",
+  "description": "lists top cpu amd memory usage for linux",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
-  "links": [],
+  "id": null,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total number of CPU cores",
       "fieldConfig": {
@@ -93,7 +173,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "count(count(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\"}) by (cpu))",
@@ -107,7 +187,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "System uptime",
       "fieldConfig": {
@@ -174,7 +254,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -192,7 +272,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Busy state of all CPU cores together",
       "fieldConfig": {
@@ -259,7 +339,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"$node:9093\"}[$__rate_interval])))",
@@ -277,7 +357,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Non available RAM memory",
       "fieldConfig": {
@@ -337,7 +417,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "((node_memory_MemTotal_bytes{instance=\"$node:9093\"} - node_memory_MemFree_bytes{instance=\"$node:9093\"}) / (node_memory_MemTotal_bytes{instance=\"$node:9093\"} )) * 100",
@@ -351,7 +431,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "100 - ((node_memory_MemAvailable_bytes{instance=\"$node:9093\"} * 100) / node_memory_MemTotal_bytes{instance=\"$node:9093\"})",
@@ -369,7 +449,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Used Swap",
       "fieldConfig": {
@@ -440,7 +520,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -458,7 +538,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "System load  over all CPU cores together",
       "fieldConfig": {
@@ -529,7 +609,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -549,7 +629,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -711,7 +791,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_packets_total{instance=\"$node:9093\",job=\"$job\"}[$__rate_interval])",
@@ -726,7 +806,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_packets_total{instance=\"$node:9093\",job=\"$job\"}[$__rate_interval])",
@@ -745,7 +825,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Total RAM",
       "fieldConfig": {
@@ -811,7 +891,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -829,7 +909,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "CPU info",
       "fieldConfig": {
@@ -1021,7 +1101,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1038,7 +1118,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\", mode=\"user\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\"}) by (cpu)))",
@@ -1053,7 +1133,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\", mode=\"iowait\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\"}) by (cpu)))",
@@ -1067,7 +1147,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\", mode=~\".*irq\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\"}) by (cpu)))",
@@ -1081,7 +1161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\",  mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq'}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\"}) by (cpu)))",
@@ -1095,7 +1175,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\", mode=\"idle\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node:9093\",job=\"$job\"}) by (cpu)))",
@@ -1113,7 +1193,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1145,7 +1225,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 24,
         "x": 0,
         "y": 10
@@ -1180,7 +1260,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -1202,7 +1282,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Basic memory usage",
       "fieldConfig": {
@@ -1634,7 +1714,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 17
       },
       "id": 333,
       "links": [],
@@ -1656,7 +1736,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "node_memory_MemTotal_bytes{instance=\"$node:9093\",job=\"$job\"}",
@@ -1671,7 +1751,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "node_memory_MemTotal_bytes{instance=\"$node:9093\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node:9093\",job=\"$job\"} - (node_memory_Cached_bytes{instance=\"$node:9093\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node:9093\",job=\"$job\"} + node_memory_SReclaimable_bytes{instance=\"$node:9093\",job=\"$job\"})",
@@ -1690,7 +1770,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1725,7 +1805,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 23
       },
       "id": 332,
       "options": {
@@ -1757,7 +1837,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1780,32 +1860,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "d8b78e62-78c8-4a93-b805-21664edea08c"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "datasource",
-        "multi": false,
-        "name": "DS_PROMETHEUS",
-        "options": [],
-        "query": "prometheus",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "prometheus",
-          "value": "prometheus"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "",
         "hide": 0,
@@ -1822,14 +1880,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "localhost",
-          "value": "localhost"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "d8b78e62-78c8-4a93-b805-21664edea08c"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(node_uname_info{job=\"$job\"},instance)",
         "hide": 0,
@@ -1848,6 +1902,24 @@
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "prometheus",
+          "value": "d8b78e62-78c8-4a93-b805-21664edea08c"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
@@ -1868,9 +1940,9 @@
       "1d"
     ]
   },
-  "timezone": "browser",
-  "title": "myhtop",
+  "timezone": "",
+  "title": "top 1.0",
   "uid": "rYdddlPWjd",
-  "version": 39,
+  "version": 45,
   "weekStart": ""
 }
