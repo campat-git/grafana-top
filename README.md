@@ -7,10 +7,6 @@ This grafana page displays the top cpu and memory users per application. There a
 
  built for **Grafana v10.2.6**
 
-```sh
-wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
-wget https://github.com/prometheus/pushgateway/releases/download/v1.11.0/pushgateway-1.11.0.linux-amd64.tar.gz
-```
 
 
 
@@ -23,33 +19,38 @@ wget https://github.com/prometheus/pushgateway/releases/download/v1.11.0/pushgat
 
 **client build**
 ```sh
+curl -L -O https://github.com/prometheus/pushgateway/releases/download/v1.11.0/pushgateway-1.11.0.linux-amd64.tar.gz
+tar zxvf pushgateway-1.11.0.linux-amd64.tar.gz -C .
+cp  ./pushgateway-1.11.0.linux-amd64/pushgateway /usr/local/bin/
+
+curl -L -O https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+tar zxvf  node_exporter-1.8.2.linux-amd64.tar.gz -C.
+cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin/
+
+groupadd node_exporter
+groupadd pushgateway
 useradd -s /sbin/nologin node_exporter
 useradd -s /sbin/nologin pushgateway
-```
 
-```sh
-git clone git@github.com:campat-git/grafana-top.git
-```
+chown node_exporter:node_exporter /usr/local/bin/node_exporter
+chown pushgateway:pushgateway /usr/local/bin/pushgateway
 
-```sh
-cd grafana-top
+curl -L -O  https://github.com/campat-git/grafana-top/archive/refs/heads/main.zip
+unzip main.zip
+cd grafana-top-main
+cp getbig /usr/local/bin/
 cp node_exporter.service /usr/lib/systemd/system/
 cp pushgateway.service /usr/lib/systemd/system/
 cp getbig.service /usr/lib/systemd/system/
 systemctl daemon-reload
-```
 
-```sh
-cp node_exporter /usr/local/bin/
-cp getbig /usr/local/bin/
-cp pushgateway /usr/local/bin/
-chown node_exporter:node_exporter node_exporter
-chown pushgateway:pushgateway pushgateway
-```
-```sh
 firewall-cmd --zone=public --permanent --add-port=9093/tcp
 firewall-cmd --zone=public --permanent --add-port=9091/tcp
 firewall-cmd --reload
+
+systemctl enable --now  node_exporter.service
+systemctl enable --now  pushgateway.service
+systemctl enable --now  getbig.service
 ```
 
 I have included multiple version of the same script in different languages, you only need to pick which one you want to uses. A python version is being worked on.
