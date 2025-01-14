@@ -115,7 +115,7 @@ cargo build --release
 
 **working on**
 
-i am building a install script which will do all the above all at once, writing a python version and building a windows version. 
+i am building a install script that will do all the above all at once, writing a python version and building a windows version. 
 
 ## License
 
