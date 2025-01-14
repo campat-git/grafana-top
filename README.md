@@ -29,8 +29,8 @@ cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin/
 
 groupadd node_exporter
 groupadd pushgateway
-useradd -s /sbin/nologin node_exporter
-useradd -s /sbin/nologin pushgateway
+useradd -s /sbin/nologin node_exporter -g node_exporter
+useradd -s /sbin/nologin pushgateway -g pushgateway
 
 chown node_exporter:node_exporter /usr/local/bin/node_exporter
 chown pushgateway:pushgateway /usr/local/bin/pushgateway
